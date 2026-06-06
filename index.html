@@ -2,150 +2,768 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetatk | Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <title>Zetatk // Platform</title>
     <style>
-        html {
-            scroll-behavior: smooth;
+        /* 1. Global Reset & Dark Premium Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
         }
-        /* Force font over absolutely everything, including Tailwind classes */
-        body, body * {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+
+        body {
+            background-color: #060810; 
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        /* Custom subtle scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        /* 2. Top Multi-Page Router Navigation */
+        nav {
+            width: 100%;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            z-index: 100;
+            background-color: #060810;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
-        ::-webkit-scrollbar-track {
-            background: #09090b;
+
+        nav a {
+            color: #4a526d;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+            font-weight: 600;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #27272a;
+
+        nav a:hover, nav a.active-nav {
+            color: #00f2ff;
+        }
+
+        /* Page Routing States */
+        .page-view {
+            display: none; 
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .page-view.active-view {
+            display: flex; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           DASHBOARD VIEWPORT STYLES
+           ========================================================================== */
+        .hero-block {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding: 0 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .viewport-3d-box {
+            position: relative;
+            width: 100%;
+            height: 380px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+            margin-bottom: 2rem;
+        }
+
+        .viewport-3d-box:active { cursor: grabbing; }
+
+        .core-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, rgba(255, 0, 85, 0.04) 50%, transparent 70%);
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #threeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 2;
+        }
+
+        .content-foreground {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            z-index: 5;
+        }
+
+        .main-logo-headline {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #00f2ff;
+            letter-spacing: 8px;
+            margin-bottom: 1.5rem;
+            border-right: 4px solid #ff0055;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 440px; 
+            display: inline-block;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a5b4fc;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-size: 1.05rem;
+            color: #7983a5;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto 3rem auto;
+            user-select: text;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .facilities-grid { grid-template-columns: 1fr; }
+            .main-logo-headline { font-size: 3rem; width: 300px; }
+            .docs-container, .changelog-container { grid-template-columns: 1fr !important; gap: 2rem; }
+        }
+
+        .facility-card {
+            background: rgba(14, 18, 36, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: left;
+            transition: border 0.3s, background 0.3s;
+        }
+
+        .facility-card:hover {
+            border-color: rgba(0, 242, 255, 0.2);
+            background: rgba(14, 18, 36, 0.7);
+        }
+
+        .facility-card h3 {
+            font-size: 1rem;
+            color: #00f2ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .facility-card p {
+            font-size: 0.85rem;
+            color: #616a8a;
+            line-height: 1.4;
+        }
+
+        .ecosystem-section {
+            width: 100%;
+            max-width: 850px;
+            padding: 2rem 1.5rem 8rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .tabs-header {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #4a526d;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.5rem 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .tab-btn:hover, .tab-btn.active { color: #ffffff; }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00f2ff, #ff0055);
+        }
+
+        .tab-pane-content { display: none; }
+        .tab-pane-content.active { display: block; }
+        .tab-pane-description { font-size: 1rem; color: #7983a5; margin-bottom: 2rem; text-align: center; }
+
+        .project-link-card {
+            display: flex;
+            align-items: center;
+            background: #0e1224;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .project-link-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 242, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.05);
+        }
+
+        .project-logo-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #161c38, #0a0d1a);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .project-logo-box svg { width: 24px; height: 24px; fill: #00f2ff; }
+        .project-info { display: flex; flex-direction: column; gap: 0.25rem; }
+        .project-title { font-size: 1.1rem; font-weight: bold; color: #ffffff; letter-spacing: 0.5px; }
+        .project-desc { font-size: 0.9rem; color: #616a8a; line-height: 1.4; }
+
+        /* ==========================================================================
+           DOCUMENTATION VIEWER STYLES
+           ========================================================================== */
+        .docs-container {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 3rem;
+            padding: 2rem 1.5rem 8rem 1.5rem;
+        }
+
+        .docs-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+            padding-right: 1.5rem;
+        }
+
+        .sidebar-group h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #4a526d;
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        
+        .sidebar-group a {
+            font-size: 0.9rem;
+            color: #7983a5;
+            text-decoration: none;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .sidebar-group a:hover, .sidebar-group a.active-doc-link { color: #00f2ff; }
+        .docs-content { max-width: 750px; user-select: text; }
+        .docs-content h2 { font-size: 2rem; color: #ffffff; margin-bottom: 1rem; letter-spacing: 0.5px; }
+        .docs-content p { font-size: 1rem; color: #7983a5; line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        .docs-code-wrapper {
+            background-color: #0e1224;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            padding: 1.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #a5b4fc;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+
+        /* ==========================================================================
+           CORPORATE CHANGELOG / TIMELINE STYLES
+           ========================================================================== */
+        .changelog-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 3rem 1.5rem 8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .changelog-header h2 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .changelog-header p {
+            font-size: 1rem;
+            color: #616a8a;
+        }
+
+        /* The vertical timeline spine line */
+        .changelog-timeline {
+            position: relative;
+            border-left: 2px solid rgba(255, 255, 255, 0.03);
+            padding-left: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            user-select: text;
+        }
+
+        .changelog-post {
+            position: relative;
+        }
+
+        /* The glowing milestone indicator nodes */
+        .changelog-post::before {
+            content: '';
+            position: absolute;
+            left: calc(-2.5rem - 6px);
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #060810;
+            border: 2px solid #00f2ff;
+            box-shadow: 0 0 10px #00f2ff;
+        }
+
+        .changelog-post.latest-post::before {
+            border-color: #ff0055;
+            box-shadow: 0 0 10px #ff0055;
+        }
+
+        .changelog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .changelog-version {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #00f2ff;
+            background-color: rgba(0, 242, 255, 0.05);
+            padding: 0.2rem 0.5rem;
             border-radius: 4px;
+            border: 1px solid rgba(0, 242, 255, 0.1);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3f3f46;
+
+        .latest-post .changelog-version {
+            color: #ff0055;
+            background-color: rgba(255, 0, 85, 0.05);
+            border-color: rgba(255, 0, 85, 0.1);
+        }
+
+        .changelog-date {
+            font-size: 0.85rem;
+            color: #4a526d;
+            font-weight: 500;
+        }
+
+        .changelog-post h3 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .changelog-post p {
+            font-size: 0.95rem;
+            color: #7983a5;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .changelog-bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .changelog-bullet-list li {
+            font-size: 0.9rem;
+            color: #616a8a;
+            position: relative;
+            padding-left: 1.25rem;
+            line-height: 1.4;
+        }
+
+        .changelog-bullet-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #ff0055;
+            font-size: 0.85rem;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body class="bg-[#09090b] text-gray-100 min-h-screen antialiased selection:bg-red-500/30 selection:text-red-200">
+<body>
 
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#09090b]/80 border-b border-gray-900">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-9 h-9 bg-gradient-to-br from-red-600 to-blue-600 rounded-xl flex items-center justify-center font-bold text-white tracking-wider text-xs shadow-lg shadow-blue-500/10 group-hover:shadow-red-500/20 transition-all duration-300">
-                    ZK
-                </div>
-                <span class="font-extrabold text-xl tracking-tight text-white group-hover:text-red-500 transition-colors duration-300">
-                    zeta<span class="text-blue-500">tk</span>
-                </span>
+    <nav>
+        <a id="nav-dashboard" class="active-nav" onclick="navigateTo('dashboard')">DASHBOARD</a>
+        <a id="nav-docs" onclick="navigateTo('docs')">DOCS</a>
+        <a id="nav-changelog" onclick="navigateTo('changelog')">CHANGELOG</a>
+    </nav>
+
+    <div id="view-dashboard" class="page-view active-view">
+        <div class="hero-block">
+            <div class="viewport-3d-box" id="drag-zone">
+                <div class="core-glow"></div>
+                <canvas id="threeCanvas"></canvas>
             </div>
             
-            <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide text-gray-400">
-                <a href="#libraries" class="hover:text-blue-400 transition-colors duration-200">Libraries</a>
-                <a href="#games" class="hover:text-red-400 transition-colors duration-200">Games</a>
-                <a href="#tools" class="hover:text-blue-400 transition-colors duration-200">Tools</a>
-                <a href="#experiments" class="hover:text-red-400 transition-colors duration-200">Experiments</a>
-            </nav>
+            <div class="content-foreground">
+                <div class="tagline">Welcome to the future of development</div>
+                <h1 class="main-logo-headline">Zetatk</h1>
+                
+                <p class="description">
+                    An advanced, low-overhead digital production matrix engineered for creators. Building open-source solutions across frameworks, digital playgrounds, and optimization workflows.
+                </p>
+
+                <div class="facilities-grid">
+                    <div class="facility-card">
+                        <h3>Free Of Cost</h3>
+                        <p>100% open-source software structures under dev-friendly licenses. Zero usage boundaries or payment firewalls.</p>
+                    </div>
+                    <div class="facility-card">
+                        <h3>Infinite Use</h3>
+                        <p>Uncapped bandwidth access models across all endpoints. Scale your deployments continuously without throttling limits.</p>
+                    </div>
+                    <div class="facility-card">
+                        <h3>Hardware Fluid</h3>
+                        <p>Engineered with zero-dependency structural code designed to minimize memory footprints and optimize rendering.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <section class="max-w-4xl mx-auto px-6 pt-24 pb-20 text-center relative">
-        <div class="absolute top-10 left-1/4 w-72 h-72 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute top-12 right-1/4 w-72 h-72 bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="ecosystem-section">
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchTab(event, 'libraries')">Libraries</button>
+                <button class="tab-btn" onclick="switchTab(event, 'games')">Games</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tools')">Tools</button>
+            </div>
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-white">
-            Hi, We're <span class="bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">Zetatk</span>
-        </h1>
-        <p class="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-medium">
-            Welcome to the official ecosystem of <strong class="text-white font-semibold">Zetatk</strong>. We build fast packages, minimalist web games, optimization tools, and raw laboratory prototypes.
-        </p>
-    </section>
-
-    <main class="max-w-6xl mx-auto px-6 pb-32">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            <section id="libraries" class="scroll-mt-28 bg-[#121214] border border-gray-900 rounded-2xl p-8 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-blue-500/10 transition-all"></div>
-                <div>
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">Zetatk Libraries</h2>
-                        <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md">Packages</span>
-                    </div>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-8">
-                        High-performance core primitive packages, custom state-managers, and rapid lightweight feature deployment engines engineered for absolute execution speed.
-                    </p>
-                </div>
-                <a href="#" class="inline-flex items-center text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors group/link mt-auto">
-                    Explore Repositories 
-                    <span class="transform group-hover/link:translate-x-1 transition-transform ml-1.5">&rarr;</span>
+            <div id="libraries" class="tab-pane-content active">
+                <p class="tab-pane-description">High-end developer frameworks and components optimized for high-FPS operations.</p>
+                <a href="about:blank" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                    <div class="project-info"><div class="project-title">ZetaMesh Core</div><div class="project-desc">A low-level WebGL scene rendering utility built for blazing fast canvas painting.</div></div>
                 </a>
-            </section>
-
-            <section id="games" class="scroll-mt-28 bg-[#121214] border border-gray-900 rounded-2xl p-8 hover:border-red-500/30 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-red-500/10 transition-all"></div>
-                <div>
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold tracking-tight text-white group-hover:text-red-400 transition-colors">Zetatk Games</h2>
-                        <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-red-500/10 text-red-400 border border-red-500/20 rounded-md">Interactive</span>
-                    </div>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-8">
-                        Lightweight web canvas games, matrix puzzle mechanics, and responsive asset prototypes complete with rich procedural audio wrappers.
-                    </p>
-                </div>
-                <a href="#" class="inline-flex items-center text-xs font-bold text-red-400 hover:text-red-300 transition-colors group/link mt-auto">
-                    Launch Arcade 
-                    <span class="transform group-hover/link:translate-x-1 transition-transform ml-1.5">&rarr;</span>
+                <a href="about:blank" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke-width="2"/></svg></div>
+                    <div class="project-info"><div class="project-title">ReactiveState Engine</div><div class="project-desc">A lightweight state-management module with absolute zero garbage collection overhead.</div></div>
                 </a>
-            </section>
+            </div>
 
-            <section id="tools" class="scroll-mt-28 bg-[#121214] border border-gray-900 rounded-2xl p-8 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-blue-500/10 transition-all"></div>
-                <div>
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">Zetatk Tools</h2>
-                        <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md">Productivity</span>
-                    </div>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-8">
-                        Secure web utility application setups, tree parsers, and browser modifiers focused on local sandboxed client-side processing workflows.
-                    </p>
-                </div>
-                <a href="#" class="inline-flex items-center text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors group/link mt-auto">
-                    Open Toolkit 
-                    <span class="transform group-hover/link:translate-x-1 transition-transform ml-1.5">&rarr;</span>
+            <div id="games" class="tab-pane-content">
+                <p class="tab-pane-description">Immersive, zero-download micro-experiences built directly inside web viewports.</p>
+                <a href="about:blank" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5-3c-.83 0-1.5-.67-1.5-1.5S20.17 9 21 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+                    <div class="project-info"><div class="project-title">Orbit Decay 3D</div><div class="project-desc">A deep-space flight navigation simulation utilizing Three.js rigid body systems.</div></div>
                 </a>
-            </section>
+            </div>
 
-            <section id="experiments" class="scroll-mt-28 bg-[#121214] border border-gray-900 rounded-2xl p-8 hover:border-red-500/30 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-red-500/10 transition-all"></div>
-                <div>
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold tracking-tight text-white group-hover:text-red-400 transition-colors">Zetatk Experiments</h2>
-                        <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold bg-red-500/10 text-red-400 border border-red-500/20 rounded-md">Lab R&D</span>
-                    </div>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-8">
-                        Experimental R&D playgrounds involving fluid vectors, neural graphics processing loops, and ongoing deep engineering studies.
-                    </p>
-                </div>
-                <a href="#" class="inline-flex items-center text-xs font-bold text-red-400 hover:text-red-300 transition-colors group/link mt-auto">
-                    Inspect Sandbox 
-                    <span class="transform group-hover/link:translate-x-1 transition-transform ml-1.5">&rarr;</span>
+            <div id="tools" class="tab-pane-content">
+                <p class="tab-pane-description">Utility suites tailored to accelerate compiling, formatting, and structural asset parsing.</p>
+                <a href="about:blank" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.1z"/></svg></div>
+                    <div class="project-info"><div class="project-title">ZetaFormatter CLI</div><div class="project-desc">An instant source-code style linter boasting structural parsing compilation.</div></div>
                 </a>
-            </section>
-
+            </div>
         </div>
-    </main>
+    </div>
 
-    <footer class="border-t border-gray-900 bg-[#050507] py-10 text-center text-xs text-gray-500 tracking-wider font-medium">
-        <p>&copy; 2026 Zetatk Framework. All concepts reserved.</p>
-    </footer>
+    <div id="view-docs" class="page-view">
+        <div class="docs-container">
+            <aside class="docs-sidebar">
+                <div class="sidebar-group">
+                    <h4>Ecosystem Specs</h4>
+                    <ul>
+                        <li><a class="active-doc-link" onclick="loadDocContent('intro')">Overview</a></li>
+                        <li><a onclick="loadDocContent('mesh')">ZetaMesh Core</a></li>
+                        <li><a onclick="loadDocContent('state')">State Engine</a></li>
+                    </ul>
+                </div>
+            </aside>
 
+            <main class="docs-content" id="docs-content-viewport">
+                <h2>Overview</h2>
+                <p>Welcome to the Zetatk system engineering specifications guide. Zetatk is structured to enable modular distribution of high-performance rendering components, tools, and digital platforms seamlessly.</p>
+                <p>All open-source packages are built upon high-efficiency architectures designed to load instantly and run smoothly across modern device layers.</p>
+            </main>
+        </div>
+    </div>
+
+    <div id="view-changelog" class="page-view">
+        <div class="changelog-container">
+            <header class="changelog-header">
+                <h2>Product Changelog</h2>
+                <p>A continuous, transparent timeline of everything our engineering squad is shipping.</p>
+            </header>
+
+            <main class="changelog-timeline">
+                
+                <article class="changelog-post latest-post">
+                    <div class="changelog-meta">
+                        <span class="changelog-version">v1.2.0</span>
+                        <span class="changelog-date">June 2026</span>
+                    </div>
+                    <h3>WebGL Engine Re-architecture & Deep-Sorting</h3>
+                    <p>Our complete engineering team finalized a major performance pass over our underlying 3D mesh pipelines, resolving long-standing rendering bugs across mobile configurations.</p>
+                    <ul class="changelog-bullet-list">
+                        <li>Migrated geometry pipeline matrices to asynchronous thread processing structures.</li>
+                        <li>Eliminated Z-fighting transparent sorting conflicts by writing hardware-friendly face occlusion checks.</li>
+                        <li>Integrated responsive box-bounding resize triggers to stabilize desktop layouts.</li>
+                    </ul>
+                </article>
+
+                <article class="changelog-post">
+                    <div class="changelog-meta">
+                        <span class="changelog-version">v1.1.4</span>
+                        <span class="changelog-date">April 2026</span>
+                    </div>
+                    <h3>轻量级 Mono-State Engine Release</h3>
+                    <p>Shipped our zero-dependency state machine, decreasing garbage collection cycles during state changes.</p>
+                    <ul class="changelog-bullet-list">
+                        <li>Engineered absolute value immutable update layers preventing cross-module event leaks.</li>
+                        <li>Reduced framework footprint package sizes down to a compact 1.8KB bundle.</li>
+                    </ul>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // 1. Navigation Multi-Page Switching Router Engine
+        function navigateTo(targetPageId) {
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active-nav'));
+
+            document.getElementById(`view-${targetPageId}`).classList.add('active-view');
+            document.getElementById(`nav-${targetPageId}`).classList.add('active-nav');
+
+            window.scrollTo({ top: 0 });
+        }
+
+        // 2. Documentation content database map strings
+        const docDatabase = {
+            intro: `<h2>Overview</h2>
+                    <p>Welcome to the Zetatk system engineering specifications guide. Zetatk is structured to enable modular distribution of high-performance rendering components, tools, and digital platforms seamlessly.</p>
+                    <p>All open-source packages are built upon high-efficiency architectures designed to load instantly and run smoothly across modern device layers.</p>`,
+            mesh: `<h2>ZetaMesh Core</h2>
+                   <p>The ZetaMesh engine abstracts complex WebGL canvas pipelines into quick structural setup functions:</p>
+                   <div class="docs-code-wrapper">import { Scene, NodeBall } from '@zetatk/core-mesh';\n\nconst arena = new Scene('#canvas-id');\narena.inject(new NodeBall({ detailing: 1 }));</div>
+                   <p>This allows fast rendering speeds and keeps the runtime execution highly performant.</p>`,
+            state: `<h2>State Engine</h2>
+                    <p>Manage application states without triggers or memory leaks using our specialized engine loops:</p>
+                    <div class="docs-code-wrapper">const networkState = ReactiveState.create({\n  dataVelocity: 0.3,\n  canvasActive: true\n});</div>`
+        };
+
+        function loadDocContent(contentKey) {
+            document.getElementById('docs-content-viewport').innerHTML = docDatabase[contentKey];
+            document.querySelectorAll('.docs-sidebar a').forEach(link => link.classList.remove('active-doc-link'));
+            event.currentTarget.classList.add('active-doc-link');
+        }
+
+        // 3. Tab Content Switcher View Control Systems
+        function switchTab(event, tabName) {
+            const contents = document.querySelectorAll('.tab-pane-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // 4. Three.js Engine Setup Logic
+        const dragZone = document.getElementById('drag-zone');
+        const canvas = document.getElementById('threeCanvas');
+
+        const scene = new THREE.Scene();
+        let boxRect = dragZone.getBoundingClientRect();
+        const camera = new THREE.PerspectiveCamera(45, boxRect.width / boxRect.height, 0.1, 1000);
+        camera.position.z = 5.8;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(boxRect.width, boxRect.height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.domElement.style.transform = "translateY(-6%)";
+
+        const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        topLight.position.set(0, 5, 3);
+        scene.add(topLight);
+
+        const neonBlueLight = new THREE.PointLight(0x00f2ff, 1.5, 10);
+        neonBlueLight.position.set(-3, 2, 2);
+        scene.add(neonBlueLight);
+
+        const neonPinkLight = new THREE.PointLight(0xff0055, 1.5, 10);
+        neonPinkLight.position.set(3, -2, 2);
+        scene.add(neonPinkLight);
+
+        const ambientLight = new THREE.AmbientLight(0x111625, 0.8);
+        scene.add(ambientLight);
+
+        const geometry = new THREE.IcosahedronGeometry(1.4, 1);
+        const hexColors = [0x0a1931, 0x0b2f35, 0x12131a, 0x2b0b14];
+        const lineColors = [0x0051ff, 0x00f2ff, 0x232533, 0xff0055];
+
+        const ballGroup = new THREE.Group();
+        const positionAttribute = geometry.attributes.position;
+
+        for (let i = 0; i < positionAttribute.count; i += 3) {
+            const faceGeometry = new THREE.BufferGeometry();
+            const vertices = new Float32Array([
+                positionAttribute.getX(i),     positionAttribute.getY(i),     positionAttribute.getZ(i),
+                positionAttribute.getX(i + 1), positionAttribute.getY(i + 1), positionAttribute.getZ(i + 1),
+                positionAttribute.getX(i + 2), positionAttribute.getY(i + 2), positionAttribute.getZ(i + 2)
+            ]);
+            faceGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+            faceGeometry.computeVertexNormals();
+
+            const colorIndex = (i / 3) % 4;
+            const material = new THREE.MeshStandardMaterial({
+                color: hexColors[colorIndex],
+                roughness: 0.4,
+                metalness: 0.2,
+                side: THREE.DoubleSide
+            });
+
+            const mesh = new THREE.Mesh(faceGeometry, material);
+            ballGroup.add(mesh);
+
+            const edges = new THREE.EdgesGeometry(faceGeometry);
+            const lineMat = new THREE.LineBasicMaterial({ color: lineColors[colorIndex], linewidth: 2 });
+            const wireframe = new THREE.LineSegments(edges, lineMat);
+            ballGroup.add(wireframe);
+        }
+        scene.add(ballGroup);
+
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let velocity = { x: 0.005, y: 0.002 };
+
+        const startDrag = (e) => {
+            isDragging = true;
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            previousMousePosition = { x: clientX, y: clientY };
+        };
+
+        const onDrag = (e) => {
+            if (!isDragging) return;
+            const clientX = e.clientX || (e.touches ? e.touches[0].clientX : null);
+            const clientY = e.clientY || (e.touches ? e.touches[0].clientY : null);
+            if (clientX === null || clientY === null) return;
+
+            const deltaMove = { x: clientX - previousMousePosition.x, y: clientY - previousMousePosition.y };
+
+            velocity.x = deltaMove.x * 0.005;
+            velocity.y = deltaMove.y * 0.005;
+
+            ballGroup.rotation.y += velocity.x;
+            ballGroup.rotation.x += velocity.y;
+
+            previousMousePosition = { x: clientX, y: clientY };
+        };
+
+        const endDrag = () => { isDragging = false; };
+
+        dragZone.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', onDrag);
+        window.addEventListener('mouseup', endDrag);
+        dragZone.addEventListener('touchstart', startDrag);
+        window.addEventListener('touchmove', onDrag);
+        window.addEventListener('touchend', endDrag);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (!isDragging) {
+                velocity.x += (0.003 - velocity.x) * 0.02;
+                velocity.y += (0.001 - velocity.y) * 0.02;
+                ballGroup.rotation.y += velocity.x;
+                ballGroup.rotation.x += velocity.y;
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            let updatedRect = dragZone.getBoundingClientRect();
+            camera.aspect = updatedRect.width / updatedRect.height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(updatedRect.width, updatedRect.height);
+        });
+    </script>
 </body>
 </html>
