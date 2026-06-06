@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* FIXED: Standardized to an elegant, clean system sans-serif stack across the entire page */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             user-select: none;
         }
@@ -124,31 +125,30 @@
             z-index: 5;
         }
 
+        /* FIXED: Swapped "Zetatk" main logo to an authoritative, ultra-clean sans-serif profile */
         .main-logo-headline {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 4.5rem;
-            font-weight: 900;
+            font-size: 5rem;
+            font-weight: 800;
             color: #00f2ff;
-            letter-spacing: 8px;
+            letter-spacing: -1px; /* Tight modern tracking gap */
             margin-bottom: 1.5rem;
-            border-right: 4px solid #ff0055;
             white-space: nowrap;
             overflow: hidden;
-            width: 440px; 
             display: inline-block;
+            width: auto; /* Removed terminal fixed clipping width bounds */
         }
 
         .tagline {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #a5b4fc;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .description {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: #7983a5;
             line-height: 1.6;
             max-width: 650px;
@@ -165,8 +165,8 @@
 
         @media (max-width: 768px) {
             .facilities-grid { grid-template-columns: 1fr; }
-            .main-logo-headline { font-size: 3rem; width: 300px; }
-            .docs-container, .changelog-container { grid-template-columns: 1fr !important; gap: 2rem; }
+            .main-logo-headline { font-size: 3.5rem; }
+            .docs-container { grid-template-columns: 1fr !important; gap: 2rem; }
         }
 
         .facility-card {
@@ -184,17 +184,18 @@
         }
 
         .facility-card h3 {
-            font-size: 1rem;
+            font-size: 0.95rem;
+            font-weight: 700;
             color: #00f2ff;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             margin-bottom: 0.5rem;
         }
 
         .facility-card p {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: #616a8a;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .ecosystem-section {
@@ -217,9 +218,9 @@
             background: transparent;
             border: none;
             color: #4a526d;
-            font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             padding: 0.5rem 2rem;
             cursor: pointer;
@@ -278,8 +279,8 @@
 
         .project-logo-box svg { width: 24px; height: 24px; fill: #00f2ff; }
         .project-info { display: flex; flex-direction: column; gap: 0.25rem; }
-        .project-title { font-size: 1.1rem; font-weight: bold; color: #ffffff; letter-spacing: 0.5px; }
-        .project-desc { font-size: 0.9rem; color: #616a8a; line-height: 1.4; }
+        .project-title { font-size: 1.1rem; font-weight: 700; color: #ffffff; }
+        .project-desc { font-size: 0.92rem; color: #616a8a; line-height: 1.4; }
 
         /* ==========================================================================
            DOCUMENTATION VIEWER STYLES
@@ -307,23 +308,26 @@
             letter-spacing: 1.5px;
             color: #4a526d;
             margin-bottom: 0.75rem;
+            font-weight: 700;
         }
 
         .sidebar-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
         
         .sidebar-group a {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: #7983a5;
             text-decoration: none;
             transition: color 0.2s;
             cursor: pointer;
+            font-weight: 500;
         }
 
         .sidebar-group a:hover, .sidebar-group a.active-doc-link { color: #00f2ff; }
         .docs-content { max-width: 750px; user-select: text; }
-        .docs-content h2 { font-size: 2rem; color: #ffffff; margin-bottom: 1rem; letter-spacing: 0.5px; }
-        .docs-content p { font-size: 1rem; color: #7983a5; line-height: 1.6; margin-bottom: 1.5rem; }
+        .docs-content h2 { font-size: 2.2rem; color: #ffffff; margin-bottom: 1rem; font-weight: 800; }
+        .docs-content p { font-size: 1.05rem; color: #7983a5; line-height: 1.6; margin-bottom: 1.5rem; }
         
+        /* Monospace is kept cleanly isolated JUST for raw code snippet strings inside the document layout */
         .docs-code-wrapper {
             background-color: #0e1224;
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -338,7 +342,7 @@
         }
 
         /* ==========================================================================
-           CORPORATE CHANGELOG / TIMELINE STYLES
+           CORPORATE CHANGELOG TIMELINE STYLES
            ========================================================================== */
         .changelog-container {
             width: 100%;
@@ -353,7 +357,7 @@
             font-size: 2.2rem;
             color: #ffffff;
             margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
+            font-weight: 800;
         }
 
         .changelog-header p {
@@ -361,7 +365,6 @@
             color: #616a8a;
         }
 
-        /* The vertical timeline spine line */
         .changelog-timeline {
             position: relative;
             border-left: 2px solid rgba(255, 255, 255, 0.03);
@@ -376,7 +379,6 @@
             position: relative;
         }
 
-        /* The glowing milestone indicator nodes */
         .changelog-post::before {
             content: '';
             position: absolute;
@@ -403,14 +405,14 @@
         }
 
         .changelog-version {
-            font-family: 'Courier New', Courier, monospace;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 700;
             color: #00f2ff;
             background-color: rgba(0, 242, 255, 0.05);
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 4px;
             border: 1px solid rgba(0, 242, 255, 0.1);
+            letter-spacing: 0.5px;
         }
 
         .latest-post .changelog-version {
@@ -422,17 +424,18 @@
         .changelog-date {
             font-size: 0.85rem;
             color: #4a526d;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .changelog-post h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #ffffff;
             margin-bottom: 0.75rem;
+            font-weight: 700;
         }
 
         .changelog-post p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #7983a5;
             line-height: 1.6;
             margin-bottom: 1rem;
@@ -447,7 +450,7 @@
         }
 
         .changelog-bullet-list li {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: #616a8a;
             position: relative;
             padding-left: 1.25rem;
@@ -462,16 +465,21 @@
             font-size: 0.85rem;
         }
     </style>
+    <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
+    <!-- Top Sticky Navigation Links -->
     <nav>
         <a id="nav-dashboard" class="active-nav" onclick="navigateTo('dashboard')">DASHBOARD</a>
         <a id="nav-docs" onclick="navigateTo('docs')">DOCS</a>
         <a id="nav-changelog" onclick="navigateTo('changelog')">CHANGELOG</a>
     </nav>
 
+    <!-- ==========================================================================
+       DASHBOARD VIEWPORT PANEL
+       ========================================================================== */ -->
     <div id="view-dashboard" class="page-view active-view">
         <div class="hero-block">
             <div class="viewport-3d-box" id="drag-zone">
@@ -541,6 +549,9 @@
         </div>
     </div>
 
+    <!-- ==========================================================================
+       DOCS VIEWPORT PANEL
+       ========================================================================== */ -->
     <div id="view-docs" class="page-view">
         <div class="docs-container">
             <aside class="docs-sidebar">
@@ -562,6 +573,9 @@
         </div>
     </div>
 
+    <!-- ==========================================================================
+       CHANGELOG VIEWPORT PANEL
+       ========================================================================== */ -->
     <div id="view-changelog" class="page-view">
         <div class="changelog-container">
             <header class="changelog-header">
@@ -570,7 +584,6 @@
             </header>
 
             <main class="changelog-timeline">
-                
                 <article class="changelog-post latest-post">
                     <div class="changelog-meta">
                         <span class="changelog-version">v1.2.0</span>
@@ -601,8 +614,9 @@
         </div>
     </div>
 
+    <!-- APPLICATION ROUTING & WEBGL PHYSICS SCRIPT -->
     <script>
-        // 1. Navigation Multi-Page Switching Router Engine
+        // Multi-Page Navigation Switcher
         function navigateTo(targetPageId) {
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
             document.querySelectorAll('nav a').forEach(link => link.classList.remove('active-nav'));
@@ -613,7 +627,7 @@
             window.scrollTo({ top: 0 });
         }
 
-        // 2. Documentation content database map strings
+        // Documentation Strings
         const docDatabase = {
             intro: `<h2>Overview</h2>
                     <p>Welcome to the Zetatk system engineering specifications guide. Zetatk is structured to enable modular distribution of high-performance rendering components, tools, and digital platforms seamlessly.</p>
@@ -633,7 +647,7 @@
             event.currentTarget.classList.add('active-doc-link');
         }
 
-        // 3. Tab Content Switcher View Control Systems
+        // Project Component Tab Switcher
         function switchTab(event, tabName) {
             const contents = document.querySelectorAll('.tab-pane-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -645,7 +659,7 @@
             event.currentTarget.classList.add('active');
         }
 
-        // 4. Three.js Engine Setup Logic
+        // Three.js Core Setup Logic
         const dragZone = document.getElementById('drag-zone');
         const canvas = document.getElementById('threeCanvas');
 
