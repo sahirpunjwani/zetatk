@@ -330,7 +330,41 @@
             cursor: pointer;
             font-weight: 500;
         }
+        /* 1. Container configuration for Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 6px; /* Ultra-thin sleek profile */
+  height: 6px;
+}
 
+/* The track: Completely transparent to blend into your dark layout */
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6); /* Translucent dark slate */
+  backdrop-filter: blur(4px);        /* Subtle glassmorphism effect */
+}
+
+/* The thumb: High-tech blue gradient with a neon glow */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f2fe 0%, #4facfe 100%); /* Neon cyan to tech blue */
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.5); /* Soft cyber-glow */
+}
+
+/* Interactive states */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #38ef7d 0%, #11998e); /* Switches to a matrix green on hover */
+  /* OR keep it blue but brighter: */
+  /* background: linear-gradient(180deg, #00ffff 0%, #0072ff 100%); */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #00f2fe; /* Solid bright neon when dragging */
+}
+
+/* 2. Firefox Support (Firefox is more limited, but we keep it sleek) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00f2fe #0f172a;
+}
         .sidebar-group a:hover, .sidebar-group a.active-doc-link { color: #00f2ff; }
         .docs-content { max-width: 750px; user-select: text; }
         .docs-content h2 { font-size: 2.4rem; color: #ffffff; margin-bottom: 1rem; font-weight: 700; }
