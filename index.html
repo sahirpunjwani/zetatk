@@ -483,6 +483,7 @@
         <a id="nav-dashboard" class="active-nav" onclick="navigateTo('dashboard')">DASHBOARD</a>
         <a id="nav-docs" onclick="navigateTo('docs')">ABOUT</a>
         <a id="nav-changelog" onclick="navigateTo('changelog')">NEWS</a>
+        <a id="nav-products" onclick="navigateTo('products')">PRODUCTS</a>
     </nav>
 
     <div id="view-dashboard" class="page-view active-view">
@@ -517,45 +518,7 @@
             </div>
         </div>
 
-        <div class="ecosystem-section">
-            <div class="tabs-header">
-                <button class="tab-btn active" onclick="switchTab(event, 'libraries')">Zetatk Libraries</button>
-                <button class="tab-btn" onclick="switchTab(event, 'games')">Zetatk Games</button>
-                <button class="tab-btn" onclick="switchTab(event, 'tools')">Zetatk Tools</button>
-            </div>
-
-            <div id="libraries" class="tab-pane-content active">
-                <p class="tab-pane-description">High-end developer frameworks and components optimized for high-FPS operations.</p>
-                <a href="sahirpunjwani.github.io/devclockify-js" target="_blank" class="project-link-card">
-                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-                    <div class="project-info"><div class="project-title">devclockify-js</div><div class="project-desc">A library of tools for an alarm project!</div></div>
-                </a>
-                <a href="sahirpunjwani.github.io/valify-js" target="_blank" class="project-link-card">
-                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke-width="2"/></svg></div>
-                    <div class="project-info"><div class="project-title">valify-js</div><div class="project-desc">A lightweight library used to valify data collected through frontend!</div></div>
-                </a>
-                <a href="sahirpunjwani.github.io/snapui" target="_blank" class="project-link-card">
-                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke-width="2"/></svg></div>
-                    <div class="project-info"><div class="project-title">snapui</div><div class="project-desc">A lightweight library used to valify data collected through frontend!</div></div>
-                </a>
-            </div>
-
-            <div id="games" class="tab-pane-content">
-                <p class="tab-pane-description">Immersive, zero-download micro-experiences built directly inside web viewports.</p>
-                <a href="about:blank" target="_blank" class="project-link-card">
-                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5-3c-.83 0-1.5-.67-1.5-1.5S20.17 9 21 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
-                    <div class="project-info"><div class="project-title">Orbit Decay 3D</div><div class="project-desc">A deep-space flight navigation simulation utilizing Three.js rigid body systems.</div></div>
-                </a>
-            </div>
-
-            <div id="tools" class="tab-pane-content">
-                <p class="tab-pane-description">Utility suites tailored to accelerate compiling, formatting, and structural asset parsing.</p>
-                <a href="about:blank" target="_blank" class="project-link-card">
-                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.1z"/></svg></div>
-                    <div class="project-info"><div class="project-title">ZetaFormatter CLI</div><div class="project-desc">An instant source-code style linter boasting structural parsing compilation.</div></div>
-                </a>
-            </div>
-        </div>
+        
     </div>
 
     <div id="view-docs" class="page-view">
@@ -597,13 +560,61 @@
                     <ul class="changelog-bullet-list">
                         <li>SnapUi : CSS library for small elements (button , text-input e.g.)</li>
                         <li>Valify-js : A JS library to valify data input.</li>
-                        <li>Devclockify-js : A JS , CSS library for a clock tool.</li>
+                  </main>
+                  <li>Devclockify-js : A JS , CSS library for a clock tool.</li>
                     </ul>
                 </article>
             </main>
         </div>
     </div>
+    <div id="view-products" class="page-view">
+        <div class="products-container">
+            <header class="products-header">
+                <h2>Products By Zetatk</h2>
+                <p>A continuous, transparent timeline of everything our engineering squad is creating.</p>
+            </header>
 
+            <div class="ecosystem-section">
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchTab(event, 'libraries')">Zetatk Libraries</button>
+                <button class="tab-btn" onclick="switchTab(event, 'games')">Zetatk Games</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tools')">Zetatk Tools</button>
+            </div>
+
+            <div id="libraries" class="tab-pane-content active">
+                <p class="tab-pane-description">High-end developer frameworks and components optimized for high-FPS operations.</p>
+                <a href="sahirpunjwani.github.io/devclockify-js" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                    <div class="project-info"><div class="project-title">devclockify-js</div><div class="project-desc">A library of tools for an alarm project!</div></div>
+                </a>
+                <a href="sahirpunjwani.github.io/valify-js" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke-width="2"/></svg></div>
+                    <div class="project-info"><div class="project-title">valify-js</div><div class="project-desc">A lightweight library used to valify data collected through frontend!</div></div>
+                </a>
+                <a href="sahirpunjwani.github.io/snapui" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke-width="2"/></svg></div>
+                    <div class="project-info"><div class="project-title">snapui</div><div class="project-desc">A lightweight library used to valify data collected through frontend!</div></div>
+                </a>
+            </div>
+
+            <div id="games" class="tab-pane-content">
+                <p class="tab-pane-description">Immersive, zero-download micro-experiences built directly inside web viewports.</p>
+                <a href="about:blank" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5-3c-.83 0-1.5-.67-1.5-1.5S20.17 9 21 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+                    <div class="project-info"><div class="project-title">Orbit Decay 3D</div><div class="project-desc">A deep-space flight navigation simulation utilizing Three.js rigid body systems.</div></div>
+                </a>
+            </div>
+
+            <div id="tools" class="tab-pane-content">
+                <p class="tab-pane-description">Utility suites tailored to accelerate compiling, formatting, and structural asset parsing.</p>
+                <a href="about:blank" target="_blank" class="project-link-card">
+                    <div class="project-logo-box"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.1z"/></svg></div>
+                    <div class="project-info"><div class="project-title">ZetaFormatter CLI</div><div class="project-desc">An instant source-code style linter boasting structural parsing compilation.</div></div>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
     <script>
         function navigateTo(targetPageId) {
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
@@ -624,11 +635,7 @@
                     <p>"Our vision is to redefine the future of digital creation by building an ecosystem where every web developer, regardless of barriers, has instant access to the ultimate tools and resources needed to build a seamless internet."</p>`,
             mission: `<h2>Zetatk Mission</h2>
                     <p>"Our mission is to provide high-quality, free-of-charge tools and assets that alleviate technical bottlenecks for web developers."</p>`,
-            state: `<h2>State Engine</h2>
-                    <p>Manage application states without triggers or memory leaks using our specialized engine loops:</p>
-                    <div class="docs-code-wrapper">const networkState = ReactiveState.create({\n  dataVelocity: 0.3,\n  canvasActive: true\n});</div>`
-        };
-
+        }
         function loadDocContent(contentKey) {
             document.getElementById('docs-content-viewport').innerHTML = docDatabase[contentKey];
             document.querySelectorAll('.docs-sidebar a').forEach(link => link.classList.remove('active-doc-link'));
