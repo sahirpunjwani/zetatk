@@ -481,8 +481,8 @@
 
     <nav>
         <a id="nav-dashboard" class="active-nav" onclick="navigateTo('dashboard')">DASHBOARD</a>
-        <a id="nav-docs" onclick="navigateTo('docs')">DOCS</a>
-        <a id="nav-changelog" onclick="navigateTo('changelog')">CHANGELOG</a>
+        <a id="nav-docs" onclick="navigateTo('docs')">ABOUT</a>
+        <a id="nav-changelog" onclick="navigateTo('changelog')">NEWS</a>
     </nav>
 
     <div id="view-dashboard" class="page-view active-view">
@@ -519,9 +519,9 @@
 
         <div class="ecosystem-section">
             <div class="tabs-header">
-                <button class="tab-btn active" onclick="switchTab(event, 'libraries')">Libraries</button>
-                <button class="tab-btn" onclick="switchTab(event, 'games')">Games</button>
-                <button class="tab-btn" onclick="switchTab(event, 'tools')">Tools</button>
+                <button class="tab-btn active" onclick="switchTab(event, 'libraries')">Zetatk Libraries</button>
+                <button class="tab-btn" onclick="switchTab(event, 'games')">Zetatk Games</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tools')">Zetatk Tools</button>
             </div>
 
             <div id="libraries" class="tab-pane-content active">
@@ -562,12 +562,11 @@
         <div class="docs-container">
             <aside class="docs-sidebar">
                 <div class="sidebar-group">
-                    <h4>Ecosystem Specs</h4>
+                    <h4>About Zetatk</h4>
                     <ul>
                         <li><a class="active-doc-link" onclick="loadDocContent('intro')">Overview</a></li>
                         <li><a onclick="loadDocContent('vision')">Zetatk Vision</a></li>
                         <li><a onclick="loadDocContent('mission')">Zetatk Mission</a></li>
-                        <li><a onclick="loadDocContent('state')">State Engine</a></li>
                     </ul>
                 </div>
             </aside>
@@ -583,7 +582,7 @@
     <div id="view-changelog" class="page-view">
         <div class="changelog-container">
             <header class="changelog-header">
-                <h2>Product Changelog</h2>
+                <h2>Product Releases</h2>
                 <p>A continuous, transparent timeline of everything our engineering squad is shipping.</p>
             </header>
 
@@ -593,25 +592,12 @@
                         <span class="changelog-version">v1.2.0</span>
                         <span class="changelog-date">June 2026</span>
                     </div>
-                    <h3>WebGL Engine Re-architecture & Deep-Sorting</h3>
-                    <p>Our complete engineering team finalized a major performance pass over our underlying 3D mesh pipelines, resolving long-standing rendering bugs across mobile configurations.</p>
+                    <h3>Released SnapUi , Valify-js , Devclockify-js</h3>
+                    <p>The complete libraries for data inputting styles with verifiying input.</p>
                     <ul class="changelog-bullet-list">
-                        <li>Migrated geometry pipeline matrices to asynchronous thread processing structures.</li>
-                        <li>Eliminated Z-fighting transparent sorting conflicts by writing hardware-friendly face occlusion checks.</li>
-                        <li>Integrated responsive box-bounding resize triggers to stabilize desktop layouts.</li>
-                    </ul>
-                </article>
-
-                <article class="changelog-post">
-                    <div class="changelog-meta">
-                        <span class="changelog-version">v1.1.4</span>
-                        <span class="changelog-date">April 2026</span>
-                    </div>
-                    <h3>轻量级 Mono-State Engine Release</h3>
-                    <p>Shipped our zero-dependency state machine, decreasing garbage collection cycles during state changes.</p>
-                    <ul class="changelog-bullet-list">
-                        <li>Engineered absolute value immutable update layers preventing cross-module event leaks.</li>
-                        <li>Reduced framework footprint package sizes down to a compact 1.8KB bundle.</li>
+                        <li>SnapUi : CSS library for small elements (button , text-input e.g.)</li>
+                        <li>Valify-js : A JS library to valify data input.</li>
+                        <li>Devclockify-js : A JS , CSS library for a clock tool.</li>
                     </ul>
                 </article>
             </main>
